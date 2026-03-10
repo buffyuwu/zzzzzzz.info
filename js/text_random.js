@@ -1,3 +1,5 @@
+// these are from the World of Darkness books and other inspired materials lol
+
 var text_random = [
   "When first I tasted the fruit of the Trees, felt the seeds of Life and Knowledge, burn within me, I swore that day that I would not turn back. When first I tasted the flesh of the kill, felt the tang of the blood, and the crunch of the bones, I swore that day I would not die. When first I tasted my own blood, felt the surge and the stir, of my own life on my lips, I swore that day to love myself, above all.",
   "When first I tasted the salt of the sea, felt my blood become water, as the sky fell behind me, I swore that day to descend, and to return with wonders. When first I tasted the love of a child, screamed with the joy of the new life and wept for what I had lost and gained, I swore that day to nurture life, as I had embraced death before. I swear by three times three times three, That these seven moments shall remain my own.",
