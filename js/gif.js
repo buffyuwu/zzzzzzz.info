@@ -136,11 +136,15 @@ function init() {
   changeBg();
   $("#center").css("height", ($(window).height() * 3) + "px");
   var target = Math.floor(Math.random() * 251) + 250;
-  while ($("#center").find("img").length < target) {
-    spawnInViewport();
-  }
   setInterval(changeBg, BG_INTERVAL);
   $(window).on("scroll", onScroll);
+  function spawnBatch() {
+    if ($("#center").find("img").length < target) {
+      spawnInViewport();
+      requestAnimationFrame(spawnBatch);
+    }
+  }
+  requestAnimationFrame(spawnBatch);
 }
 
 $(document).ready(init);
