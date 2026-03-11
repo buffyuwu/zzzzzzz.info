@@ -34,7 +34,7 @@ var spawnedImages = 0;
 var totalSpawned = 0;
 var spawnedText = 0;
 var MAX_TEXT = 100;
-var MAX_IMAGES = 250;
+var MAX_IMAGES = 500;
 var videoSpawned = false;
 
 function shuffle(arr) {
