@@ -10,19 +10,17 @@ var src_links = [
   "src/AQMmqKAnZFuNHUwAlkvQW6BCvYVnP9giv4wOo5TsXIBq9oHvtOL2XlnhuEEMRufM63ojufKid9QLB8ELto44kRqy.mp4",
   "src/thorn_voicemail.ogg"
 ];
-var length_bgs = gif_bgs.length;
-var gif_all_center = gif_center.concat(gif_cities).concat(gif_yyyyyyy);
-var length_center = gif_all_center.length;
-var text_unique = [];
+var all_the_stuff = gif_bgs.concat(gif_center).concat(gif_cities).concat(gif_yyyyyyy);
+var length_center = all_the_stuff.length;
 var text_seen = {};
-var text_src = text_all.concat(text_random);
+var text_all = [];
+var text_src = text_random.concat(text_yyyyyyy);
 for (var i = 0; i < text_src.length; i++) {
   if (!text_seen[text_src[i]]) {
     text_seen[text_src[i]] = true;
-    text_unique.push(text_src[i]);
+    text_all.push(text_src[i]);
   }
 }
-text_all = text_unique;
 
 var text_fonts = ["Helvetica Neue, Helvetica, Arial, sans-serif", "Georgia, serif", "Courier New, monospace", "Impact, fantasy", "Palatino, Book Antiqua, serif", "Trebuchet MS, sans-serif", "Arial Black, sans-serif", "Comic Sans MS, cursive"];
 var text_weights = ["100", "300", "400", "700", "900"];
@@ -46,10 +44,10 @@ function shuffle(arr) {
   return a;
 }
 
-var imgDeck = shuffle(gif_all_center);
+var imgDeck = shuffle(all_the_stuff);
 var imgIdx = 0;
 function nextImg() {
-  if (imgIdx >= imgDeck.length) { imgDeck = shuffle(gif_all_center); imgIdx = 0; }
+  if (imgIdx >= imgDeck.length) { imgDeck = shuffle(all_the_stuff); imgIdx = 0; }
   return imgDeck[imgIdx++];
 }
 
@@ -120,8 +118,18 @@ function spawnInViewport() {
   }
 }
 
+var bgDeck = shuffle(all_the_stuff);
+var bgIdx = 0;
+var bgDeck2 = shuffle(backgroundies);
+var bgIdx2 = 0;
 function changeBg() {
-  $("#background").css("background-image", "url(" + gif_bgs[Math.floor(Math.random() * length_bgs)] + ")");
+  if (Math.random() < 0.5) {
+    if (bgIdx2 >= bgDeck2.length) { bgDeck2 = shuffle(backgroundies); bgIdx2 = 0; }
+    $("#background").css("background-image", "url(" + bgDeck2[bgIdx2++] + ")");
+  } else {
+    if (bgIdx >= bgDeck.length) { bgDeck = shuffle(all_the_stuff); bgIdx = 0; }
+    $("#background").css("background-image", "url(" + bgDeck[bgIdx++] + ")");
+  }
 }
 
 function onScroll() {
