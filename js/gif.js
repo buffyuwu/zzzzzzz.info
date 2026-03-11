@@ -1,14 +1,22 @@
 var src_links = [
+  "src/AQMmqKAnZFuNHUwAlkvQW6BCvYVnP9giv4wOo5TsXIBq9oHvtOL2XlnhuEEMRufM63ojufKid9QLB8ELto44kRqy.mp4",
+  "src/CAN_YOU_MEET_ME_HALFWAY.mp4",
+  "src/RAAAAUUUUUHG_RAAUUUHG_RAUHG.mp4",
+  "src/anarchs.mp4",
+  "src/awawa.mp4",
   "src/ballbounce.mp4",
-  "src/fall.mp4",
-  "src/nyan.mp4",
+  "src/cat.mp4",
   "src/doyoureceivemyecho.mp4",
+  "src/fall.mp4",
+  "src/finalnights.mp4",
+  "src/nightcore.mp4",
+  "src/nyan.mp4",
   "src/put_that_there.mp4",
   "src/sanfran.mp4",
-  "src/anarchs.mp4",
+  "src/seal.mp4",
   "src/staked.mp4",
-  "src/AQMmqKAnZFuNHUwAlkvQW6BCvYVnP9giv4wOo5TsXIBq9oHvtOL2XlnhuEEMRufM63ojufKid9QLB8ELto44kRqy.mp4",
-  "src/thorn_voicemail.ogg"
+  "src/thorn_voicemail.ogg",
+  "src/xeonpr.mp4"
 ];
 var all_the_stuff = gif_bgs.concat(gif_center).concat(gif_cities).concat(gif_yyyyyyy);
 var length_center = all_the_stuff.length;
@@ -44,19 +52,17 @@ function shuffle(arr) {
   return a;
 }
 
-var imgDeck = shuffle(all_the_stuff);
-var imgIdx = 0;
-function nextImg() {
-  if (imgIdx >= imgDeck.length) { imgDeck = shuffle(all_the_stuff); imgIdx = 0; }
-  return imgDeck[imgIdx++];
+function speeeeen(arr) {
+  var deck = shuffle(arr), index = 0;
+  return function() {
+    if (index >= deck.length) { deck = shuffle(arr); index = 0; }
+    return deck[index++];
+  };
 }
 
-var txtDeck = shuffle(text_all);
-var txtIdx = 0;
-function nextTxt() {
-  if (txtIdx >= txtDeck.length) { txtDeck = shuffle(text_all); txtIdx = 0; }
-  return txtDeck[txtIdx++];
-}
+var nextLink = speeeeen(src_links);
+var nextImg = speeeeen(all_the_stuff);
+var nextTxt = speeeeen(text_all);
 
 function spawnInViewport() {
   var $center = $("#center");
@@ -69,7 +75,7 @@ function spawnInViewport() {
 
   if (!videoSpawned && Math.random() < 0.05) {
     videoSpawned = true;
-    $("<video>").attr({ src: "src/put_that_there.mp4", loop: "", controls: "" }).css({
+    $("<video>").attr({ src: Math.random() < 0.5 ? "src/put_that_there.mp4" : "src/ballbounce.mp4", loop: "", controls: "" }).css({
       position: "absolute",
       top: (Math.random() * totalHeight) + "px",
       left: (Math.random() * 100) + "%",
@@ -93,7 +99,7 @@ function spawnInViewport() {
         zIndex: Math.floor(Math.random() * 100)
       });
       if (Math.random() < 0.15) {
-        var url = src_links[Math.floor(Math.random() * src_links.length)];
+        var url = nextLink();
         $("<a>").attr({ href: url, target: "_blank" }).css({ position: "absolute", top: $img.css("top"), left: $img.css("left"), zIndex: 999999998 }).append($img.css({ position: "static" })).appendTo($center);
       } else {
         $img.appendTo($center);
@@ -118,18 +124,12 @@ function spawnInViewport() {
   }
 }
 
-var bgDeck = shuffle(all_the_stuff);
-var bgIdx = 0;
-var bgDeck2 = shuffle(backgroundies);
-var bgIdx2 = 0;
+var nextBg = speeeeen(all_the_stuff);
+var nextBg2 = speeeeen(backgroundies);
 function changeBg() {
-  if (Math.random() < 0.5) {
-    if (bgIdx2 >= bgDeck2.length) { bgDeck2 = shuffle(backgroundies); bgIdx2 = 0; }
-    $("#background").css("background-image", "url(" + bgDeck2[bgIdx2++] + ")");
-  } else {
-    if (bgIdx >= bgDeck.length) { bgDeck = shuffle(all_the_stuff); bgIdx = 0; }
-    $("#background").css("background-image", "url(" + bgDeck[bgIdx++] + ")");
-  }
+  var src = Math.random() < 0.5 ? nextBg2() : nextBg();
+  $("#background").css("background-image", "url(" + src + ")");
+
 }
 
 function onScroll() {
